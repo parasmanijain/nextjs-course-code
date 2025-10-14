@@ -1,7 +1,7 @@
-import PostItem from './post-item';
-import classes from './posts-grid.module.css';
+import { PostItem } from "./PostItem";
+import classes from "./PostsGrid.module.scss";
 
-function PostsGrid(props) {
+export const PostsGrid = (props) => {
   const { posts } = props;
 
   return (
@@ -11,6 +11,4 @@ function PostsGrid(props) {
       ))}
     </ul>
   );
-}
-
-export default PostsGrid;
+};

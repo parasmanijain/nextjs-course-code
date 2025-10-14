@@ -1,9 +1,8 @@
-import { Fragment } from 'react';
-import Head from 'next/head';
-
-import FeaturedPosts from '../components/home-page/featured-posts';
-import Hero from '../components/home-page/hero';
-import { getFeaturedPosts } from '../lib/posts-util';
+import { Fragment } from "react";
+import Head from "next/head";
+import { FeaturedPosts } from "../components/home-page/FeaturedPosts";
+import { Hero } from "../components/home-page/Hero";
+import { getFeaturedPosts } from "../lib/posts-util";
 
 function HomePage(props) {
   return (
@@ -11,8 +10,8 @@ function HomePage(props) {
       <Head>
         <title>Max' Blog</title>
         <meta
-          name='description'
-          content='I post about programming and web development.'
+          name="description"
+          content="I post about programming and web development."
         />
       </Head>
       <Hero />
