@@ -28,7 +28,9 @@ const FilteredEventsPage = () => {
   ) {
     return (
       <>
-        <ErrorAlert>Invalid Filter.Please adjust your values!</ErrorAlert>
+        <ErrorAlert>
+          <p>Invalid Filter.Please adjust your values!</p>
+        </ErrorAlert>
         <div className="center">
           <Button link="/events">Show All Events</Button>
         </div>
@@ -41,7 +43,9 @@ const FilteredEventsPage = () => {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
-        <ErrorAlert>No Events found for the choden filter!</ErrorAlert>
+        <ErrorAlert>
+          <p>No Events found for the choden filter!</p>
+        </ErrorAlert>
         <div className="center">
           <Button link="/events">Show All Events</Button>
         </div>
