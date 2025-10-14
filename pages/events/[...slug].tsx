@@ -1,6 +1,7 @@
 import { EventList } from "@/components/events/EventList";
 import { ResultsTitle } from "@/components/events/ResultsTitle";
 import { Button } from "@/components/ui/Button";
+import { ErrorAlert } from "@/components/ui/ErrorAlert";
 import { getFilteredEvents } from "@/dummy-data";
 import { useRouter } from "next/router";
 
@@ -27,7 +28,7 @@ const FilteredEventsPage = () => {
   ) {
     return (
       <>
-        <p>Invalid Filter.Please adjust your values!</p>{" "}
+        <ErrorAlert>Invalid Filter.Please adjust your values!</ErrorAlert>
         <div className="center">
           <Button link="/events">Show All Events</Button>
         </div>
@@ -40,7 +41,7 @@ const FilteredEventsPage = () => {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
-        <p>No Events found for the choden filter!</p>
+        <ErrorAlert>No Events found for the choden filter!</ErrorAlert>
         <div className="center">
           <Button link="/events">Show All Events</Button>
         </div>
