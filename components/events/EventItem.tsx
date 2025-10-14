@@ -1,5 +1,6 @@
 import Link from "next/link";
-import classes from './EventItem.module.scss';
+import classes from "./EventItem.module.scss";
+import { Button } from "../ui/Button";
 
 export const EventItem = ({ title, image, date, location, id }) => {
   const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
@@ -10,20 +11,20 @@ export const EventItem = ({ title, image, date, location, id }) => {
   const formattedAddress = location.replace(", ", "\n");
   const exploreLink = `/events/${id}`;
   return (
-    <li>
+    <li className={classes.item}>
       <img src={`/${image}`} alt={title} />
-      <div>
+      <div className={classes.content}>
         <div>
           <h2>{title}</h2>
-          <div>
+          <div className={classes.date}>
             <time>{humanReadableDate}</time>
           </div>
-          <div>
+          <div className={classes.address}>
             <address>{formattedAddress}</address>
           </div>
         </div>
-        <div>
-          <Link href={exploreLink}>Explore Event</Link>
+        <div className={classes.actions}>
+          <Button link={exploreLink}>Explore Event</Button>
         </div>
       </div>
     </li>
