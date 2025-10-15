@@ -6,6 +6,7 @@ import { ErrorAlert } from "@/components/ui/ErrorAlert";
 import { getFilteredEvents } from "@/helpers/api-util";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
@@ -31,7 +32,7 @@ const FilteredEventsPage = () => {
     }
   }, [data]);
 
-  if (!events || !filterData) {
+  if (!events || !filterData || isLoading) {
     return <p className="center">Loading...</p>;
   }
 
@@ -98,6 +99,10 @@ const FilteredEventsPage = () => {
    const dateObj = new Date(numYear, numMonth - 1);
   return (
     <>
+      <Head>
+          <title>Filtered Events</title>
+          <meta name="description" content={`All events for ${numMonth}/${numYear}.`} />
+        </Head>
       <ResultsTitle date={dateObj} />
       <EventList items={filteredEvents} />
     </>

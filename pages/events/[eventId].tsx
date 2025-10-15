@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { getEventById, getFeaturedEvents } from "@/helpers/api-util";
 import { EventSummary } from "@/components/event-detail/EventSummary";
 import { EventLogistics } from "@/components/event-detail/EventLogistics";
@@ -16,6 +17,10 @@ const EventDetailPage = ({ event }) => {
   return (
     <div>
       <>
+        <Head>
+          <title>{title}</title>
+          <meta name="description" content={description} />
+        </Head>
         <EventSummary title={title} />
         <EventLogistics
           date={date}
@@ -49,7 +54,7 @@ export async function getStaticPaths() {
   }));
   return {
     paths,
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }
 
