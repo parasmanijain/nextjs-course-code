@@ -1,15 +1,15 @@
+import { getEventById, getFeaturedEvents } from "@/helpers/api-util";
 import { EventSummary } from "@/components/event-detail/EventSummary";
 import { EventLogistics } from "@/components/event-detail/EventLogistics";
 import { EventContent } from "@/components/event-detail/EventContent";
 import { ErrorAlert } from "@/components/ui/ErrorAlert";
-import { getEventById, getAllEvents } from "@/helpers/api-util";
 
 const EventDetailPage = ({ event }) => {
   if (!event) {
     return (
-      <ErrorAlert>
-        <p>No Event Found</p>
-      </ErrorAlert>
+      <div className="center">
+        <p>Loading!</p>
+      </div>
     );
   }
   const { title, description, date, image, id, location } = event;
@@ -38,17 +38,18 @@ export async function getStaticProps({ params }) {
     props: {
       event,
     },
+    revalidate: 30,
   };
 }
 
 export async function getStaticPaths() {
-  const events = await getAllEvents();
+  const events = await getFeaturedEvents();
   const paths = events.map((event) => ({
     params: { eventId: event.id },
   }));
   return {
     paths,
-    fallback: false
+    fallback: 'blocking',
   };
 }
 
