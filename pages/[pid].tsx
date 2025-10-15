@@ -2,7 +2,11 @@ import fs from "fs/promises";
 import path from "path";
 
 const ProductDetailPage = ({ product }) => {
-  const { title, description } = product;
+  const { title, description } = product || {};
+
+  //   if(!product){
+  //     return <p>Loading...</p>
+  //   }
   return (
     <>
       <h1>{title}</h1>
@@ -11,12 +15,16 @@ const ProductDetailPage = ({ product }) => {
   );
 };
 
+const getData = async () => {
+  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
+  const jsonData = await fs.readFile(filePath, "utf-8");
+  return JSON.parse(jsonData);
+};
+
 export async function getStaticProps(context) {
   const { params } = context;
   const { pid } = params;
-  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
-  const jsonData = await fs.readFile(filePath, "utf-8");
-  const { products } = JSON.parse(jsonData);
+  const { products } = await getData();
   const product = products.find((productObj) => productObj.id === pid);
   return {
     props: {
@@ -26,25 +34,12 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
+  const { products } = await getData();
+  const paths = products.map((product) => ({ params: { pid: product.id } }));
+
   return {
-    paths: [
-      {
-        params: {
-          pid: "p1",
-        },
-      },
-       {
-        params: {
-          pid: "p2",
-        },
-      },
-       {
-        params: {
-          pid: "p3",
-        },
-      },
-    ],
-    fallback: false
+    paths,
+    fallback: "blocking",
   };
 }
 
