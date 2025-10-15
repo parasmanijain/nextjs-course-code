@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 
-const fetcher = (url) => fetch(url).then((res) => res.json())
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const FilteredEventsPage = () => {
   const router = useRouter();
@@ -16,8 +16,9 @@ const FilteredEventsPage = () => {
   const filterData = router.query.slug;
 
   const { data, error, isLoading } = useSWR(
-    "https://nextjs-course-44d17-default-rtdb.firebaseio.com/events.json"
-  ,fetcher);
+    "https://nextjs-course-44d17-default-rtdb.firebaseio.com/events.json",
+    fetcher
+  );
 
   useEffect(() => {
     if (data) {
@@ -32,8 +33,23 @@ const FilteredEventsPage = () => {
     }
   }, [data]);
 
+  let pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`A list of filtered events.`}
+      />
+    </Head>
+  );
+
   if (!events || !filterData || isLoading) {
-    return <p className="center">Loading...</p>;
+    return (
+      <>
+        {pageHeadData}
+        <p className="center">Loading...</p>
+      </>
+    );
   }
 
   const filteredYear = filterData[0];
@@ -42,16 +58,28 @@ const FilteredEventsPage = () => {
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
 
+  pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`All events for ${numMonth}/${numYear}.`}
+      />
+    </Head>
+  );
+
   if (
     isNaN(numYear) ||
     isNaN(numMonth) ||
     numYear > 2025 ||
     numYear < 2021 ||
     numMonth < 1 ||
-    numMonth > 12 || error
+    numMonth > 12 ||
+    error
   ) {
     return (
       <>
+        {pageHeadData}
         <ErrorAlert>
           <p>Invalid Filter.Please adjust your values!</p>
         </ErrorAlert>
@@ -86,6 +114,7 @@ const FilteredEventsPage = () => {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
+        {pageHeadData}
         <ErrorAlert>
           <p>No Events found for the choden filter!</p>
         </ErrorAlert>
@@ -96,13 +125,10 @@ const FilteredEventsPage = () => {
     );
   }
   // const { year, month } = date;
-   const dateObj = new Date(numYear, numMonth - 1);
+  const dateObj = new Date(numYear, numMonth - 1);
   return (
     <>
-      <Head>
-          <title>Filtered Events</title>
-          <meta name="description" content={`All events for ${numMonth}/${numYear}.`} />
-        </Head>
+      {pageHeadData}
       <ResultsTitle date={dateObj} />
       <EventList items={filteredEvents} />
     </>
