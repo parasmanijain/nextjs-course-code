@@ -1,11 +1,21 @@
-function HomePage(props) {
+import { products } from "../data/dummy-backend.json";
+
+function HomePage({ products }) {
   return (
     <ul>
-      <li>Product 1</li>
-      <li>Product 2</li>
-      <li>Product 3</li>
+      {products && products.map((product) => (
+        <li key={product.id}>{product.title}</li>
+      ))}
     </ul>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      products,
+    },
+  };
 }
 
 export default HomePage;
