@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { NotificationContext } from "../../store/NotificationContext";
+import { NotificationContext } from "@/store/NotificationContext";
 import classes from "./Notification.module.scss";
 
 export const Notification = (props) => {

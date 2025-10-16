@@ -1,6 +1,6 @@
 import { Fragment, useContext } from "react";
+import { NotificationContext } from "@/store/NotificationContext";
 import { Notification } from "../ui/Notification";
-import { NotificationContext } from "../../store/NotificationContext";
 import { MainHeader } from "./MainHeader";
 
 function Layout(props) {
