@@ -1,0 +1,11 @@
+import classes from "./AllPosts.module.scss";
+import { PostsGrid } from "./PostsGrid";
+
+export const AllPosts = ({posts}) => {
+  return (
+    <section className={classes.posts}>
+      <h1>All Posts</h1>
+      <PostsGrid posts={posts} />
+    </section>
+  );
+};
