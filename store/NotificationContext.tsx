@@ -1,9 +1,9 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from "react";
 
 interface Notification {
-title:string;
- message:string;
- status:string;
+  title: string;
+  message: string;
+  status: string;
 }
 export const NotificationContext = createContext({
   notification: null,
@@ -11,14 +11,14 @@ export const NotificationContext = createContext({
   hideNotification: function () {},
 });
 
-export const NotificationContextProvider = ({children}) => {
+export const NotificationContextProvider = ({ children }) => {
   const [activeNotification, setActiveNotification] = useState<Notification>();
 
   useEffect(() => {
     if (
       activeNotification &&
-      (activeNotification.status === 'success' ||
-        activeNotification.status === 'error')
+      (activeNotification.status === "success" ||
+        activeNotification.status === "error")
     ) {
       const timer = setTimeout(() => {
         setActiveNotification(null);
@@ -49,4 +49,4 @@ export const NotificationContextProvider = ({children}) => {
       {children}
     </NotificationContext.Provider>
   );
-}
+};
