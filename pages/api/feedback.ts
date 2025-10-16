@@ -2,11 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
 
-const buildFeedbackPath = () => {
+export const buildFeedbackPath = () => {
   return path.join(process.cwd(), "data", "feedback.json");
 };
 
-const extractFeedback = (filePath) => {
+export const extractFeedback = (filePath) => {
   const fileData = fs.readFileSync(filePath, "utf-8");
   return JSON.parse(fileData) as Feedback[];
 };
