@@ -11,7 +11,7 @@ export const extractFeedback = (filePath) => {
   return JSON.parse(fileData) as Feedback[];
 };
 
-interface Feedback {
+export interface Feedback {
   id: string;
   email: string;
   text: string;
