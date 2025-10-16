@@ -3,8 +3,7 @@ import { CommentList } from "./CommentList";
 import { NewComment } from "./NewComment";
 import classes from "./Comments.module.scss";
 
-export const Comments = (props) => {
-  const { eventId } = props;
+export const Comments = ({eventId}) => {
 
   const [showComments, setShowComments] = useState(false);
 
