@@ -3,9 +3,8 @@ import { NotificationContext } from "@/store/NotificationContext";
 import { Notification } from "../ui/Notification";
 import { MainHeader } from "./MainHeader";
 
-function Layout(props) {
+export const  Layout = (props) => {
   const notificationCtx = useContext(NotificationContext);
-
   const activeNotification = notificationCtx.notification;
 
   return (
@@ -22,5 +21,3 @@ function Layout(props) {
     </Fragment>
   );
 }
-
-export default Layout;
