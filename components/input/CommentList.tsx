@@ -1,6 +1,6 @@
-import classes from './comment-list.module.css';
+import classes from './CommentList.module.scss';
 
-function CommentList() {
+export const CommentList = () => {
   return (
     <ul className={classes.comments}>
       {/* Render list of comments - fetched from API */}
@@ -19,5 +19,3 @@ function CommentList() {
     </ul>
   );
 }
-
-export default CommentList;
