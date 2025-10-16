@@ -1,3 +1,4 @@
+import { connectDatabase, insertDocument } from "@/helpers/db-util";
 import { MongoClient } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -8,18 +9,26 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(422).json({ message: "Invalid email address" });
     }
 
-    const client = await MongoClient.connect(
-      `mongodb+srv://parasmanijain2208:Gulshan1006@cluster0.h1buo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-    );
+    let client: MongoClient;
+    try {
+      client = await connectDatabase();
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Connecting to the database failed!" });
+    }
 
-    const db = client.db('events');
-    await db.collection('newsletter').insertOne({
-      email
-    });
+    try {
+      await insertDocument(client, "newsletter", {
+        email,
+      });
+      res.status(201).json({
+        message: "Signed up!",
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Inserting data failed!" });
+    }
     client.close();
-    return res.status(201).json({
-      message: "Signed up!",
-    });
   }
 };
 
