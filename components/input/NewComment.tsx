@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import classes from './NewComment.module.scss';
 
-export const NewComment = (props) => {
+export const NewComment = ({onAddComment}) => {
   const [isInvalid, setIsInvalid] = useState(false);
 
   const emailInputRef = useRef(null);
@@ -28,7 +28,7 @@ export const NewComment = (props) => {
       return;
     }
 
-    props.onAddComment({
+    onAddComment({
       email: enteredEmail,
       name: enteredName,
       text: enteredComment,
