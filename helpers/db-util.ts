@@ -18,8 +18,9 @@ export const insertDocument = (
 export const getAllDocuments = (
   client: MongoClient,
   collection: string,
-  sort: { [key: string]: SortDirection }
+  sort: { [key: string]: SortDirection },
+  filter = {}
 ) => {
   const db = client.db("events");
-  return db.collection(collection).find({}).sort(sort).toArray();
+  return db.collection(collection).find(filter).sort(sort).toArray();
 };

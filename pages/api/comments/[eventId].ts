@@ -64,7 +64,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     let documents: Document[];
     try {
-      documents = await getAllDocuments(client, "comments", { _id: -1 });
+      documents = await getAllDocuments(
+        client,
+        "comments",
+        { _id: -1 },
+        { eventId }
+      );
       res.status(200).json({
         comments: documents,
       });
