@@ -1,14 +1,15 @@
 import { useContext, useRef } from "react";
-import classes from "./NewsletterRegistration.module.scss";
 import { NotificationContext } from "@/store/NotificationContext";
+import classes from "./NewsletterRegistration.module.scss";
 
 export const NewsletterRegistration = () => {
-  const notificationCtx = useContext(NotificationContext);
+  const { showNotification } = useContext(NotificationContext);
   const emailInputRef = useRef(null);
-  async function registrationHandler(event) {
+
+  const registrationHandler = async (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
-    notificationCtx.showNotification({
+    showNotification({
       title: "Signing up...",
       message: "Registering for newsletter.",
       status: "pending",
@@ -25,20 +26,19 @@ export const NewsletterRegistration = () => {
         const data = await response.json();
         throw new Error(data.message || "Something went wrong!");
       }
-      const data = await response.json();
-      notificationCtx.showNotification({
+      showNotification({
         title: "Success!",
         message: "Successfully registered for newsletter!",
         status: "success",
       });
     } catch (error) {
-      notificationCtx.showNotification({
+      showNotification({
         title: "Error!",
         message: error.message || "Something went wrong!",
         status: "error",
       });
     }
-  }
+  };
 
   return (
     <section className={classes.newsletter}>
