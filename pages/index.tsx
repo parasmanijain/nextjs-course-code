@@ -1,10 +1,15 @@
+import Head from "next/head";
+import { getFeaturedPosts } from "@/lib/posts-util";
 import { FeaturedPosts } from "@/components/home-page/FeaturedPosts";
 import { Hero } from "@/components/home-page/Hero";
-import { getFeaturedPosts } from "@/lib/posts-util";
 
 const HomePage = ({ posts }) => {
   return (
     <>
+      <Head>
+        <title>Paras Blog</title>
+        <meta name="description" content="Programming and Web development"/>
+      </Head>
       <Hero />
       <FeaturedPosts posts={posts} />
     </>

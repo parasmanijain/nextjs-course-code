@@ -1,7 +1,6 @@
 import classes from './Notification.module.scss';
 
-export const Notification = (props) => {
-  const { title, message, status } = props;
+export const Notification = ( { title, message, status }) => {
 
   let statusClasses = '';
 
