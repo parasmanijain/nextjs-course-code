@@ -1,6 +1,20 @@
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import  atomDark  from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
+import css from "react-syntax-highlighter/dist/cjs/languages/prism/css";
+import ts from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
+import scss from "react-syntax-highlighter/dist/cjs/languages/prism/scss";
+import tsx from "react-syntax-highlighter/dist/cjs/languages/prism/tsx";
+import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
+
+SyntaxHighlighter.registerLanguage("js", js);
+SyntaxHighlighter.registerLanguage("ts", ts);
+SyntaxHighlighter.registerLanguage("jsx", jsx);
+SyntaxHighlighter.registerLanguage("tsx", tsx);
+SyntaxHighlighter.registerLanguage("css", css);
+SyntaxHighlighter.registerLanguage("scss", scss);
+
 import classes from "./PostContent.module.scss";
 import { PostHeader } from "./PostHeader";
 import Image from "next/image";
@@ -17,7 +31,7 @@ export const PostContent = ({ post }) => {
         priority
       />
     ),
-   code({ node, inline, className, children, ...props }) {
+    code({ node, inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || "");
       return !inline && match ? (
         <SyntaxHighlighter
