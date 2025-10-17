@@ -5,14 +5,14 @@ export const ContactForm = () => {
   const emailInputRef = useRef(null);
   const nameInputRef = useRef(null);
   const messageInputRef = useRef(null);
-  const newMessage = {
-    name: nameInputRef.current.value,
-    message: messageInputRef.current.value,
-    email: emailInputRef.current.value,
-  };
 
   const sendMessageHandler = async (event) => {
     event.preventDefault();
+    const newMessage = {
+      name: nameInputRef.current.value,
+      message: messageInputRef.current.value,
+      email: emailInputRef.current.value,
+    };
     const response = await fetch("/api/contact", {
       method: "POST",
       body: JSON.stringify(newMessage),
