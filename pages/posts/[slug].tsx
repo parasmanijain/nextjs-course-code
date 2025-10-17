@@ -7,7 +7,7 @@ const PostDetailPage = ({ post }) => {
     <>
       <Head>
         <title>{post.title}</title>
-        <meta name="description" content={post.description} />
+        <meta name="description" content={post.excerpt} />
       </Head>
       <PostContent post={post} />
     </>
