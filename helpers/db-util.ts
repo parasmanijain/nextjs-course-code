@@ -1,9 +1,7 @@
 import { MongoClient, SortDirection } from "mongodb";
 
 export const connectDatabase = () => {
-  return MongoClient.connect(
-    `mongodb+srv://parasmanijain2208:Gulshan1006@cluster0.h1buo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-  );
+  return MongoClient.connect(process.env.DATABASE_NAME);
 };
 
 export const insertDocument = (
