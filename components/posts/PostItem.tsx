@@ -23,6 +23,7 @@ export const PostItem = ({ post }) => {
             width={300}
             height={200}
             style={{ width: "100%", height: "auto" }}
+            priority
           />
         </div>
         <div className={classes.content}>

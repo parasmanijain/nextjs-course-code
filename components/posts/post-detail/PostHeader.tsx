@@ -11,6 +11,7 @@ export const PostHeader = ({ title, image }) => {
         width={200}
         height={150}
         style={{ width: "100%", height: "auto" }}
+        priority
       />
     </header>
   );
