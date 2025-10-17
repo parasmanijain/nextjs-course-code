@@ -1,23 +1,24 @@
-import classes from './Notification.module.scss';
+import { createPortal } from "react-dom";
+import classes from "./Notification.module.scss";
 
-export const Notification = ( { title, message, status }) => {
+export const Notification = ({ title, message, status }) => {
+  let statusClasses = "";
 
-  let statusClasses = '';
-
-  if (status === 'success') {
+  if (status === "success") {
     statusClasses = classes.success;
   }
 
-  if (status === 'error') {
+  if (status === "error") {
     statusClasses = classes.error;
   }
 
   const cssClasses = `${classes.notification} ${statusClasses}`;
 
-  return (
+  return createPortal(
     <div className={cssClasses}>
       <h2>{title}</h2>
       <p>{message}</p>
-    </div>
+    </div>,
+    document.getElementById("notifications")
   );
-}
+};
