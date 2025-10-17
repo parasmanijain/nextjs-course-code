@@ -1,6 +1,6 @@
-import classes from './profile-form.module.css';
+import classes from './ProfileForm.module.scss';
 
-function ProfileForm() {
+export const ProfileForm = ()  => {
   return (
     <form className={classes.form}>
       <div className={classes.control}>
@@ -17,5 +17,3 @@ function ProfileForm() {
     </form>
   );
 }
-
-export default ProfileForm;

@@ -1,6 +1,6 @@
-import classes from './starting-page.module.css';
+import classes from "./StartingPage.module.scss";
 
-function StartingPageContent() {
+export const StartingPage = () => {
   // Show Link to Login page if NOT auth
 
   return (
@@ -8,6 +8,4 @@ function StartingPageContent() {
       <h1>Welcome on Board!</h1>
     </section>
   );
-}
-
-export default StartingPageContent;
+};

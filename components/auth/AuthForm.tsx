@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import classes from './auth-form.module.css';
+import classes from './AuthForm.module.scss';
 
-function AuthForm() {
+export const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
 
-  function switchAuthModeHandler() {
+  const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   }
 
@@ -34,5 +34,3 @@ function AuthForm() {
     </section>
   );
 }
-
-export default AuthForm;

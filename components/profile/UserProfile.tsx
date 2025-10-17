@@ -1,7 +1,7 @@
-import ProfileForm from './profile-form';
-import classes from './user-profile.module.css';
+import { ProfileForm } from "./ProfileForm";
+import classes from "./UserProfile.module.scss";
 
-function UserProfile() {
+export const UserProfile = () => {
   // Redirect away if NOT auth
 
   return (
@@ -10,6 +10,4 @@ function UserProfile() {
       <ProfileForm />
     </section>
   );
-}
-
-export default UserProfile;
+};

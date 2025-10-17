@@ -1,8 +1,7 @@
 import Link from 'next/link';
+import classes from './MainNavigation.module.scss';
 
-import classes from './main-navigation.module.css';
-
-function MainNavigation() {
+export const MainNavigation = () => {
   return (
     <header className={classes.header}>
       <Link href="/">
@@ -24,5 +23,3 @@ function MainNavigation() {
     </header>
   );
 }
-
-export default MainNavigation;
