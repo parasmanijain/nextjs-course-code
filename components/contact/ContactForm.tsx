@@ -1,25 +1,10 @@
-import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./ContactForm.module.scss";
 import { Notification } from "../ui/Notification";
 
-// Define the structure of the contact data
-interface ContactDetails {
-  email: string;
-  name: string;
-  message: string;
-}
+type RequestStatus = "pending" | "success" | "error";
 
-// Define notification types
-type RequestStatus = "pending" | "success" | "error" | null;
-
-interface NotificationData {
-  status: "pending" | "success" | "error";
-  title: string;
-  message: string;
-}
-
-// Send contact form data to the backend API
-async function sendContactData(contactDetails: ContactDetails) {
+const sendContactData = async (contactDetails) => {
   const response = await fetch("/api/contact", {
     method: "POST",
     body: JSON.stringify(contactDetails),
@@ -27,59 +12,56 @@ async function sendContactData(contactDetails: ContactDetails) {
       "Content-Type": "application/json",
     },
   });
-
   const data = await response.json();
-
   if (!response.ok) {
-    throw new Error(data.message || "Something went wrong!");
+    throw new Error(data.message || "Something went w");
   }
-}
+};
 
 export const ContactForm = () => {
-  const [enteredEmail, setEnteredEmail] = useState<string>("");
-  const [enteredName, setEnteredName] = useState<string>("");
-  const [enteredMessage, setEnteredMessage] = useState<string>("");
-  const [requestStatus, setRequestStatus] = useState<RequestStatus>(null);
-  const [requestError, setRequestError] = useState<string | null>(null);
+  const emailInputRef = useRef(null);
+  const nameInputRef = useRef(null);
+  const messageInputRef = useRef(null);
+  const formInputRef = useRef(null);
+  const [requestStatus, setRequestStatus] = useState<RequestStatus | null>(
+    null
+  );
+  const [requestError, setRequestError] = useState(null);
 
   useEffect(() => {
     if (requestStatus === "success" || requestStatus === "error") {
       const timer = setTimeout(() => {
-        setRequestStatus(null);
         setRequestError(null);
+        setRequestStatus(null);
       }, 3000);
 
       return () => clearTimeout(timer);
     }
   }, [requestStatus]);
 
-  async function sendMessageHandler(event: FormEvent) {
+  const sendMessageHandler = async (event) => {
     event.preventDefault();
-
+    const newMessage = {
+      name: nameInputRef.current.value,
+      message: messageInputRef.current.value,
+      email: emailInputRef.current.value,
+    };
     setRequestStatus("pending");
-
     try {
-      await sendContactData({
-        email: enteredEmail,
-        name: enteredName,
-        message: enteredMessage,
-      });
-
+      await sendContactData(newMessage);
+      setRequestError(null);
       setRequestStatus("success");
-      setEnteredEmail("");
-      setEnteredName("");
-      setEnteredMessage("");
-    } catch (error: any) {
+      formInputRef.current.reset();
+    } catch (error) {
       setRequestError(error.message);
       setRequestStatus("error");
     }
-  }
+  };
 
-  let notification: NotificationData | null = null;
-
+  let notification;
   if (requestStatus === "pending") {
     notification = {
-      status: "pending",
+      status: requestStatus,
       title: "Sending message...",
       message: "Your message is on its way!",
     };
@@ -87,7 +69,7 @@ export const ContactForm = () => {
 
   if (requestStatus === "success") {
     notification = {
-      status: "success",
+      status: requestStatus,
       title: "Success!",
       message: "Message sent successfully!",
     };
@@ -95,66 +77,39 @@ export const ContactForm = () => {
 
   if (requestStatus === "error") {
     notification = {
-      status: "error",
+      status: requestStatus,
       title: "Error!",
-      message: requestError || "Something went wrong!",
+      message: requestError,
     };
   }
 
   return (
     <section className={classes.contact}>
-      <h1>How can I help you?</h1>
-      <form className={classes.form} onSubmit={sendMessageHandler}>
+      <h1>How can i help you?</h1>
+      <form
+        className={classes.form}
+        onSubmit={sendMessageHandler}
+        ref={formInputRef}
+      >
         <div className={classes.controls}>
           <div className={classes.control}>
             <label htmlFor="email">Your Email</label>
-            <input
-              type="email"
-              id="email"
-              required
-              value={enteredEmail}
-              onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                setEnteredEmail(event.target.value)
-              }
-            />
+            <input type="email" id="email" required ref={emailInputRef} />
           </div>
           <div className={classes.control}>
             <label htmlFor="name">Your Name</label>
-            <input
-              type="text"
-              id="name"
-              required
-              value={enteredName}
-              onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                setEnteredName(event.target.value)
-              }
-            />
+            <input type="text" id="name" required ref={nameInputRef} />
           </div>
         </div>
         <div className={classes.control}>
           <label htmlFor="message">Your Message</label>
-          <textarea
-            id="message"
-            rows={5}
-            required
-            value={enteredMessage}
-            onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
-              setEnteredMessage(event.target.value)
-            }
-          ></textarea>
+          <textarea id="message" rows={5} required ref={messageInputRef} />
         </div>
-
         <div className={classes.actions}>
           <button>Send Message</button>
         </div>
       </form>
-      {notification && (
-        <Notification
-          status={notification.status}
-          title={notification.title}
-          message={notification.message}
-        />
-      )}
+      {notification && <Notification {...notification} />}
     </section>
   );
 };

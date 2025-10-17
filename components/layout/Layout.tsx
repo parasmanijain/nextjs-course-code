@@ -1,11 +1,10 @@
-import { Fragment } from "react";
 import { MainNavigation } from "./MainNavigation";
 
-export const Layout = (props) => {
+export const Layout = ({ children }) => {
   return (
-    <Fragment>
+    <>
       <MainNavigation />
-      <main>{props.children}</main>
-    </Fragment>
+      <main>{children}</main>
+    </>
   );
 };

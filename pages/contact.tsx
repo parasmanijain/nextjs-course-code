@@ -1,17 +1,16 @@
-import { Fragment } from "react";
 import Head from "next/head";
-import { ContactForm } from "../components/contact/ContactForm";
+import { ContactForm } from "@/components/contact/ContactForm";
 
-function ContactPage() {
+const ContactPage = () => {
   return (
-    <Fragment>
+    <>
       <Head>
-        <title>Contact Me</title>
-        <meta name="description" content="Send me your messages!" />
+        <title>Contact me</title>
+        <meta name="description" content="Send me your messages" />
       </Head>
       <ContactForm />
-    </Fragment>
+    </>
   );
-}
+};
 
 export default ContactPage;

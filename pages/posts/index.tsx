@@ -1,31 +1,28 @@
 import Head from "next/head";
-import { Fragment } from "react";
-import { AllPosts } from "../../components/posts/AllPosts";
-import { getAllPosts } from "../../lib/posts-util";
+import { getAllPosts } from "@/lib/posts-util";
+import { AllPosts } from "@/components/posts/AllPosts";
 
-function AllPostsPage(props) {
+const AllPostsPage = ({ posts }) => {
   return (
-    <Fragment>
+    <>
       <Head>
-        <title>All Posts</title>
+        <title>All My Posts</title>
         <meta
           name="description"
-          content="A list of all programming-related tutorials and posts!"
+          content="A list of all programming-related tutorials and posts"
         />
       </Head>
-      <AllPosts posts={props.posts} />
-    </Fragment>
+      <AllPosts posts={posts} />
+    </>
   );
-}
+};
 
 export function getStaticProps() {
-  const allPosts = getAllPosts();
-
+  const posts = getAllPosts();
   return {
     props: {
-      posts: allPosts,
+      posts,
     },
   };
 }
-
 export default AllPostsPage;

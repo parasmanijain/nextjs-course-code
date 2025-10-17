@@ -1,22 +1,20 @@
-import Image from 'next/image';
-import classes from './Hero.module.scss';
+import Image from "next/image";
+import classes from "./Hero.module.scss";
 
 export const Hero = () => {
   return (
     <section className={classes.hero}>
       <div className={classes.image}>
         <Image
-          src='/images/site/max.png'
-          alt='An image showing Max'
+          src={`/images/site/paras.jpg`}
+          alt="An image showing Paras"
           width={300}
           height={300}
+          priority
         />
       </div>
-      <h1>Hi, I'm Max</h1>
-      <p>
-        I blog about web development - especially frontend frameworks like
-        Angular or React.
-      </p>
+      <h1>Hi, I am Paras</h1>
+      <p>I blog about web development</p>
     </section>
   );
-}
+};
