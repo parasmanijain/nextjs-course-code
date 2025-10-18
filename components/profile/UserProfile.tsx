@@ -1,8 +1,6 @@
 import { useSession, getSession } from "next-auth/react";
 import { ProfileForm } from "./ProfileForm";
 import classes from "./UserProfile.module.scss";
-import { useEffect, useState } from "react";
-import { Session } from "inspector";
 
 export const UserProfile = () => {
   const { data: session, status } = useSession();
