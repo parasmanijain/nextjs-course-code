@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import { createUser } from "@/lib/auth";
 import classes from "./AuthForm.module.scss";
-import { signIn } from "next-auth/react";
 
 export const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const router = useRouter();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
 
@@ -20,16 +22,13 @@ export const AuthForm = () => {
     if (isLogin) {
       const result = await signIn("credentials", {
         redirect: false,
-        email:enteredEmail,
-        password:enteredPassword
+        email: enteredEmail,
+        password: enteredPassword,
       });
-      if(!result.ok) {
-        console.log(result);
-      }
-      if(result.error) {
-        console.log(result);
-      }
       console.log(result);
+      if (!result.error) {
+        router.replace("/profile");
+      }
     } else {
       try {
         const result = await createUser(enteredEmail, enteredPassword);
