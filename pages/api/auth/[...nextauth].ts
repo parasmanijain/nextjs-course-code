@@ -25,7 +25,7 @@ export default NextAuth({
 
           throw new Error("Incorrect Credentials");
         }
-        const isValid = await verifyPassword(password, user);
+        const isValid = await verifyPassword(password, user.password);
         if (!isValid) {
           client.close();
 

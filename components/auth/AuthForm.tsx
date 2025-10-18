@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { createUser } from "@/lib/auth";
 import classes from "./AuthForm.module.scss";
+import { signIn } from "next-auth/react";
 
 export const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,6 +18,18 @@ export const AuthForm = () => {
     event.preventDefault();
 
     if (isLogin) {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email:enteredEmail,
+        password:enteredPassword
+      });
+      if(!result.ok) {
+
+      }
+      if(result.error) {
+
+      }
+      console.log(result);
     } else {
       try {
         const result = await createUser(enteredEmail, enteredPassword);
