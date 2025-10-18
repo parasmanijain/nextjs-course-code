@@ -22,13 +22,11 @@ export default NextAuth({
         });
         if (!user) {
           client.close();
-
           throw new Error("Incorrect Credentials");
         }
         const isValid = await verifyPassword(password, user.password);
         if (!isValid) {
           client.close();
-
           throw new Error("Incorrect Credentials");
         }
         client.close();

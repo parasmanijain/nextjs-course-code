@@ -1,7 +1,11 @@
-import Link from 'next/link';
-import classes from './MainNavigation.module.scss';
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import classes from "./MainNavigation.module.scss";
 
 export const MainNavigation = () => {
+  const { data: session, status } = useSession();
+  console.log(session);
+  console.log(status);
   return (
     <header className={classes.header}>
       <Link href="/">
@@ -9,17 +13,22 @@ export const MainNavigation = () => {
       </Link>
       <nav>
         <ul>
-          <li>
-            <Link href="/auth">Login</Link>
-          </li>
-          <li>
-            <Link href="/profile">Profile</Link>
-          </li>
-          <li>
-            <button>Logout</button>
-          </li>
+          {session ? (
+            <>
+              <li>
+                <Link href="/profile">Profile</Link>
+              </li>
+              <li>
+                <button>Logout</button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link href="/auth">Login</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
   );
-}
+};

@@ -24,10 +24,10 @@ export const AuthForm = () => {
         password:enteredPassword
       });
       if(!result.ok) {
-
+        console.log(result);
       }
       if(result.error) {
-
+        console.log(result);
       }
       console.log(result);
     } else {
