@@ -1,7 +1,8 @@
 import { hashPassword, verifyPassword } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log(req.method, req.body);
@@ -9,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions);
   console.log(session);
   if (!session) {
     res.status(401).json({ message: "Not Authenticated" });
