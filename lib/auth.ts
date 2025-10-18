@@ -1,7 +1,11 @@
-import { hash } from "bcryptjs";
+import { hash,compare } from "bcryptjs";
 
 export const hashPassword = (password:string)=> {
     return hash(password, 12);
+}
+
+export const verifyPassword = (password, hashPassword) => {
+  return compare(password, hashPassword);
 }
 
 export const createUser = async (email, password) => {
