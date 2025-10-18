@@ -4,10 +4,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log(req.method, req.body);
   if (req.method !== "PATCH") {
     return;
   }
+
   const session = await getSession({ req });
+  console.log(session);
   if (!session) {
     res.status(401).json({ message: "Not Authenticated" });
     return;
