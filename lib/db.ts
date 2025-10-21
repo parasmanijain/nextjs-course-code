@@ -1,7 +1,6 @@
 import { MongoClient } from "mongodb";
 
-export const connectToDatabase = () => {
-  return MongoClient.connect(
-    "mongodb+srv://paras:MhdnFBPtCvMv0blg@cluster0.h1buo.mongodb.net/auth-demo?retryWrites=true&w=majority&appName=Cluster0"
+export const connectToDatabase = () =>
+  MongoClient.connect(
+    `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.h1buo.mongodb.net/${process.env.mongodb_dbname}?retryWrites=true&w=majority&appName=${process.env.mongodb_appname}`
   );
-};
